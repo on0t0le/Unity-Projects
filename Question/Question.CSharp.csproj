@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\GameEngine.cs" />
+    <Compile Include="Assets\_Scripts\PlayBattonScript.cs" />
     <Compile Include="Assets\_Scripts\Question.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

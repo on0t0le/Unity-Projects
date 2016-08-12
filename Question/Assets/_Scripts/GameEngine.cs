@@ -7,6 +7,7 @@ using System.Linq;
 public class GameEngine : MonoBehaviour {
 
     public Question[] questions;
+    public GameObject endScreen;
 
     private static List<Question> unansweredQestions;
     private Question currentQuestion;
@@ -18,8 +19,10 @@ public class GameEngine : MonoBehaviour {
     private Text questionText;
     [SerializeField]
     private Text scoreField;
-    
-	void Start () {
+    [SerializeField]
+    private Text endScoreField;
+
+    void Start () {
 
         if(unansweredQestions == null || unansweredQestions.Count == 0)
         {
@@ -38,6 +41,7 @@ public class GameEngine : MonoBehaviour {
     {
         questionText.text = currentQuestion.fact;
         scoreField.text = score.ToString();
+        endScoreField.text = score.ToString();
 
     }
     
@@ -46,14 +50,26 @@ public class GameEngine : MonoBehaviour {
     {
         if (unansweredQestions.Count == 0)
         {
-            Application.Quit();
+            //Application.Quit();
             //return;
+            if (!endScreen.GetComponent<Animator>().enabled)
+                endScreen.GetComponent<Animator>().enabled = true;
+            else
+            {
+                
+                endScreen.GetComponent<Animator>().SetTrigger("End");
 
+            }
+               
         }
+        else
+        {
+
         int questionIndex = Random.Range(0, unansweredQestions.Count);
         currentQuestion = unansweredQestions[questionIndex];
 
         unansweredQestions.Remove(currentQuestion);
+        }
 
     }
 
@@ -83,5 +99,14 @@ public class GameEngine : MonoBehaviour {
             Debug.Log("Wrong!");
         }
         GetNextQuestion();
+    }
+
+    public void RestartGame()
+    {
+        Application.LoadLevel("Main");
+    }
+    public void EndGame()
+    {
+        Application.LoadLevel("MainMenu");
     }
 }
